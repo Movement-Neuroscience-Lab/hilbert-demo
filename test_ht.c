@@ -9,13 +9,13 @@
 #define TWOPI 6.2831853
 
 int main(void) {
-  double f = 2.5;            // Hz
+  double f = 2.5;       // Hz
   double A = 5.0; 
-
-  double period = 2.0;          // s
-  int n = 2048; // # samples
+  double period = 2.0;  // s
+  int n = 2048;         // # samples
   double dt = period / n;
 
+  // Print num samples
   printf("%d\n", n);
 
   int i; 
@@ -25,17 +25,18 @@ int main(void) {
   // Initialize data
   for (i = 0; i < n; i++)
     {
-       REAL(data,i) = A * sin(TWOPI * f * dt * i); 
-       IMAG(data,i) = 0;
-       REAL(transformed_data,i) = A * sin(TWOPI * f * dt * i); 
-       IMAG(transformed_data,i) = 0;
+      REAL(data,i) = A * sin(TWOPI * f * dt * i); 
+      IMAG(data,i) = 0;
+      REAL(transformed_data,i) = A * sin(TWOPI * f * dt * i); 
+      IMAG(transformed_data,i) = 0;
     }
 
   // Print initial data
   for (i = 0; i < n; i++)
     {
       printf ("%d %e %e\n", i,
-              REAL(data,i), IMAG(data,i));
+        REAL(data,i), IMAG(data,i)
+      );
     }
 
 
@@ -55,15 +56,17 @@ int main(void) {
   for (i = 0; i < n; i++)
     {
       printf ("%d %e %e\n", i,
-              REAL(transformed_data,i),
-              IMAG(transformed_data,i));
+        REAL(transformed_data,i),
+        IMAG(transformed_data,i)
+      );
     }
 
   // Print phase 
   for (i = 0; i < n; i++)
     {
       printf ("%d %e\n", i,
-          atan2(IMAG(transformed_data,i), REAL(transformed_data,i)));
+        atan2(REAL(transformed_data,i), IMAG(transformed_data,i))
+      );
     }
 
   return 0;

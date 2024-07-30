@@ -78,7 +78,7 @@ def main():
     ax2 = fig.add_subplot(122)
     ax2.scatter(range(n), phase_data, c='red', label=(r'$\phi (t)$'))
     ax2.set_xlabel(r'Index ($t$)')
-    ax2.set_ylabel(r'Phase ($\phi (t)$)')
+    ax2.set_ylabel(r'Phase in radians ($\phi (t)$)')
     ax2.set_title('Phase of signal')
     ax2.legend()
 

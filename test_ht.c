@@ -44,9 +44,9 @@ int main(void) {
   // Initialize `data` and `transformed_data` with x(t)
   for (i = 0; i < n; i++)
     {
-      REAL(data,i) = A * sin(TWOPI * f * dt * i); 
+      REAL(data,i) = A * cos(TWOPI * f * dt * i); 
       IMAG(data,i) = 0;
-      REAL(transformed_data,i) = A * sin(TWOPI * f * dt * i); 
+      REAL(transformed_data,i) = A * cos(TWOPI * f * dt * i); 
       IMAG(transformed_data,i) = 0;
     }
 

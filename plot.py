@@ -61,13 +61,13 @@ ax1.set_title('Pre-HT')
 ax1.legend()
 
 # 3D Plot for Post-HT
-# ax2 = fig.add_subplot(122, projection='3d')
-# x2.scatter(range(n), real_nums_postHT, imag_nums_postHT, c='red', label='Post-HT')
-# x2.set_xlabel('Index')
-# x2.set_ylabel('Real Number')
-# x2.set_zlabel('Imaginary Number')
-# x2.set_title('Post-HT')
-# x2.legend()
+ax2 = fig.add_subplot(122, projection='3d')
+# ax2.scatter(range(n), real_nums_postHT, imag_nums_postHT, c='red', label='Post-HT')
+# ax2.set_xlabel('Index')
+# ax2.set_ylabel('Real Number')
+# ax2.set_zlabel('Imaginary Number')
+# ax2.set_title('Post-HT')
+# ax2.legend()
 
 # 2D Plot for Analytic
 ax2 = fig.add_subplot(122)

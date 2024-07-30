@@ -53,8 +53,8 @@ int main(void) {
   // Print initial `data` i.e. x(t)
   for (i = 0; i < n; i++)
     {
-      printf ("%d %e %e\n", i,
-        REAL(data,i), IMAG(data,i)
+      printf ("%d %e\n", i,
+        REAL(data,i)
       );
     }
 

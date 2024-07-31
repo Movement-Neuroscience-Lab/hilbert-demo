@@ -28,7 +28,7 @@ double angle(double real, double imag) {
 
 int main(void) {
   // Information about original signal x(t)
-  double f = 2.5;       // Hz
+  double f = 2.0;       // Hz
   double A = 5.0; 
   double period = 2.0;  // s
   int n = 2048;         // # samples
@@ -58,7 +58,7 @@ int main(void) {
       );
     }
 
-  // Store Hilbert transformed data in `transformed_data`
+  // Store H[x(t)] in `transformed_data`
   hilbert (transformed_data, 1, n);
 
   // Print `transformed_data` i.e. H[x(t)]
@@ -70,13 +70,29 @@ int main(void) {
       );
     }
 
-  // Print phase over time
+  // Print calculated phase over time (shifted up by pi)
   for (i = 0; i < n; i++)
     {
       printf ("%d %e\n", i,
-        angle(REAL(data,i), IMAG(transformed_data,i))
+        angle(REAL(data,i), IMAG(transformed_data,i)) + (TWOPI / 2)
       );
     }
+  
+  printf("CALC PHASE OVER\n");
+
+  // Print actual phase over time
+  for (i = 0; i < n; i++)
+    {
+      // TODO fix, wrong
+      double phase = (TWOPI / 4.0) + (1 / (f * i * dt));
+      while (phase > TWOPI) {
+        phase -= TWOPI;
+      }
+      printf ("%d %e\n", i,
+        phase 
+      );
+    }
+
 
   return 0;
 }

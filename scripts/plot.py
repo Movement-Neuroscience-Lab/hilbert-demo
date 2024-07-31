@@ -19,6 +19,7 @@ def main():
     real_nums_postHT = []
     imag_nums_postHT = []
     phase_data = []
+    real_phase_data = []
 
     # Read data from HT output file
     with open(filename, 'r') as file:
@@ -30,6 +31,7 @@ def main():
         preHT_lines = lines[1:n+1]
         postHT_lines = lines[n+1:2*n+1]
         phase_lines = lines[2*n+1:3*n+1]
+        real_phase_lines = lines[3*n+1:4*n+1]
         
         # Process Pre-HT
         for line in preHT_lines:
@@ -47,15 +49,22 @@ def main():
             real_nums_postHT.append(real_num)
             imag_nums_postHT.append(imag_num)
 
-        # Process phase data 
+        # Process calculated phase data 
         for line in phase_lines:
             parts = line.split()
             index = int(parts[0])
             phase = float(parts[1])
             phase_data.append(phase)
 
-    # Plotting in 3D
-    fig = plt.figure(figsize=(14, 7))
+        # Process real phase data 
+        for line in real_phase_lines:
+            parts = line.split()
+            index = int(parts[0])
+            phase = float(parts[1])
+            real_phase_data.append(phase)
+
+    # Plotting
+    fig = plt.figure(figsize=(14, 14))
 
     # 3D Plot for Pre-HT
     ax1 = fig.add_subplot(121)
@@ -74,13 +83,21 @@ def main():
     # ax2.set_title('Hilbert transform')
     # ax2.legend()
 
-    # 2D Plot for Analytic
-    ax2 = fig.add_subplot(122)
+    # 2D Plot for calculated phase 
+    ax2 = fig.add_subplot(221)
     ax2.scatter(range(n), phase_data, c='red', label=(r'$\phi (t)$'))
     ax2.set_xlabel(r'Index ($t$)')
     ax2.set_ylabel(r'Phase in radians ($\phi (t)$)')
-    ax2.set_title('Phase of signal')
+    ax2.set_title('Calculated phase of signal')
     ax2.legend()
+
+    # 2D Plot for real phase
+    ax3 = fig.add_subplot(222)
+    ax3.scatter(range(n), real_phase_data, c='green', label=(r'$\phi (t)$'))
+    ax3.set_xlabel(r'Index ($t$)')
+    ax3.set_ylabel(r'Phase in radians ($\phi (t)$)')
+    ax3.set_title('Real phase of signal')
+    ax3.legend()
 
     plt.tight_layout()
     plt.show()

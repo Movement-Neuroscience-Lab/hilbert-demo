@@ -78,14 +78,14 @@ def main():
     ax1 = fig.add_subplot(222, projection='3d')
     ax1.plot(range(n), real_nums_postHT, imag_nums_postHT, c='red', label=(r'$H[x(t)]$'))
     ax1.set_xlabel(r'Index ($t$)')
-    ax1.set_ylabel(r'Real Number ($H[x(t)]$)')
-    ax1.set_zlabel(r'Imaginary Number ($iH[x(t)]$)')
+    ax1.set_ylabel(r'Re')
+    ax1.set_zlabel(r'Im')
     ax1.set_title('Hilbert transform')
     ax1.legend()
 
     # 2D Plot for calculated phase 
     ax2 = fig.add_subplot(223)
-    ax2.plot(range(n), phase_data, c='red', label=(r'$\phi (t)$'))
+    ax2.plot(range(n), phase_data, c='purple', label=(r'$\phi (t)$'))
     ax2.set_xlabel(r'Index ($t$)')
     ax2.set_ylabel(r'Phase in radians ($\phi (t)$)')
     ax2.set_title('Calculated phase of signal')

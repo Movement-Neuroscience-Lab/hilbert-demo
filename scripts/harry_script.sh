@@ -1,5 +1,5 @@
 # Names of files
-HT_SRC="test_ht.c"
+HT_SRC="ht.c"
 HT_EXEC="prog"
 HT_OUT="output.txt"
 PLOT_SCR="scripts/plot.py"

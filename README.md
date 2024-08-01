@@ -1,5 +1,7 @@
 # Hilbert Transform Demo
 
+![](media/example.png)
+
 run `./scripts/script.sh` to:
 - compile `ht.c`
 - run it as `prog` and write its output to `output.txt` 

@@ -64,36 +64,36 @@ def main():
             real_phase_data.append(phase)
 
     # Plotting
-    fig = plt.figure(figsize=(14, 14))
+    fig = plt.figure(figsize=(15,10))
 
     # 3D Plot for Pre-HT
-    ax1 = fig.add_subplot(121)
-    ax1.scatter(range(n), real_nums_preHT, c='blue', label=(r'$x(t)$'))
-    ax1.set_xlabel(r'Index ($t$)')
-    ax1.set_ylabel(r'Real Number ($x(t)$)')
-    ax1.set_title('Original signal')
-    ax1.legend()
+    ax0 = fig.add_subplot(221)
+    ax0.plot(range(n), real_nums_preHT, c='blue', label=(r'$x(t)$'))
+    ax0.set_xlabel(r'Index ($t$)')
+    ax0.set_ylabel(r'Real Number ($x(t)$)')
+    ax0.set_title('Original signal')
+    ax0.legend()
 
     # 3D Plot for Post-HT
-    # ax2 = fig.add_subplot(122, projection='3d')
-    # ax2.scatter(range(n), real_nums_postHT, imag_nums_postHT, c='red', label=(r'$H[x(t)]$'))
-    # ax2.set_xlabel(r'Index ($t$)')
-    # ax2.set_ylabel(r'Real Number ($H[x(t)]$)')
-    # ax2.set_zlabel(r'Imaginary Number ($iH[x(t)]$)')
-    # ax2.set_title('Hilbert transform')
-    # ax2.legend()
+    ax1 = fig.add_subplot(222, projection='3d')
+    ax1.plot(range(n), real_nums_postHT, imag_nums_postHT, c='red', label=(r'$H[x(t)]$'))
+    ax1.set_xlabel(r'Index ($t$)')
+    ax1.set_ylabel(r'Real Number ($H[x(t)]$)')
+    ax1.set_zlabel(r'Imaginary Number ($iH[x(t)]$)')
+    ax1.set_title('Hilbert transform')
+    ax1.legend()
 
     # 2D Plot for calculated phase 
-    ax2 = fig.add_subplot(221)
-    ax2.scatter(range(n), phase_data, c='red', label=(r'$\phi (t)$'))
+    ax2 = fig.add_subplot(223)
+    ax2.plot(range(n), phase_data, c='red', label=(r'$\phi (t)$'))
     ax2.set_xlabel(r'Index ($t$)')
     ax2.set_ylabel(r'Phase in radians ($\phi (t)$)')
     ax2.set_title('Calculated phase of signal')
     ax2.legend()
 
     # 2D Plot for real phase
-    ax3 = fig.add_subplot(222)
-    ax3.scatter(range(n), real_phase_data, c='green', label=(r'$\phi (t)$'))
+    ax3 = fig.add_subplot(224)
+    ax3.plot(range(n), real_phase_data, c='green', label=(r'$\phi (t)$'))
     ax3.set_xlabel(r'Index ($t$)')
     ax3.set_ylabel(r'Phase in radians ($\phi (t)$)')
     ax3.set_title('Real phase of signal')

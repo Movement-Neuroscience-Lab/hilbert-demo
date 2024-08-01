@@ -12,10 +12,11 @@
 void hilbert(double* data, int stride, int n) {
   gsl_fft_complex_radix2_forward (data, stride, n);
 
+  // Remove negative frequencies
   for (int i = (n/2); i < n; i++) 
-    {
-      REAL(data, i) = 0;
-    }
+  {
+    REAL(data, i) = 0;
+  }
 
   gsl_fft_complex_radix2_inverse (data, stride, n);
 }
@@ -43,56 +44,57 @@ int main(void) {
 
   // Initialize `data` and `transformed_data` with x(t)
   for (i = 0; i < n; i++)
-    {
-      REAL(data,i) = A * cos(TWOPI * f * dt * i); 
-      IMAG(data,i) = 0;
-      REAL(transformed_data,i) = A * cos(TWOPI * f * dt * i); 
-      IMAG(transformed_data,i) = 0;
-    }
+  {
+    REAL(data,i) = A * cos(TWOPI * f * dt * i); 
+    IMAG(data,i) = 0;
+    REAL(transformed_data,i) = A * cos(TWOPI * f * dt * i); 
+    IMAG(transformed_data,i) = 0;
+  }
 
   // Print initial `data` i.e. x(t)
   for (i = 0; i < n; i++)
-    {
-      printf ("%d %e\n", i,
-        REAL(data,i)
-      );
-    }
+  {
+    printf ("%d %e\n", i,
+      REAL(data,i)
+    );
+  }
 
   // Store H[x(t)] in `transformed_data`
   hilbert (transformed_data, 1, n);
 
   // Print `transformed_data` i.e. H[x(t)]
   for (i = 0; i < n; i++)
-    {
-      printf ("%d %e %e\n", i,
-        REAL(transformed_data,i),
-        IMAG(transformed_data,i)
-      );
-    }
+  {
+    printf ("%d %e %e\n", i,
+      REAL(transformed_data,i),
+      IMAG(transformed_data,i)
+    );
+  }
 
-  // Print calculated phase over time (shifted up by pi)
+  // Print calculated phase over time,  
+  // * Mapped from (-pi,pi] to (0, 2pi]
+  // * Shifted by -pi/2 (Hilbert shifts by +pi/2)
   for (i = 0; i < n; i++)
-    {
-      printf ("%d %e\n", i,
-        angle(REAL(data,i), IMAG(transformed_data,i)) + (TWOPI / 2)
-      );
-    }
-  
-  printf("CALC PHASE OVER\n");
+  {
+    printf ("%d %e\n", i,
+      angle(REAL(data,i), IMAG(transformed_data,i)) + (TWOPI / 2)
+    );
+  }
 
   // Print actual phase over time
+  double phi_0 = TWOPI / 4; // pi / 2
   for (i = 0; i < n; i++)
-    {
-      // TODO fix, wrong
-      double phase = (TWOPI / 4.0) + (1 / (f * i * dt));
-      while (phase > TWOPI) {
-        phase -= TWOPI;
-      }
-      printf ("%d %e\n", i,
-        phase 
-      );
-    }
+  {
+    double phi = (TWOPI * dt * i * f) + phi_0; 
 
+    // shitty modulo
+    while (phi > TWOPI) {
+      phi -= TWOPI;
+    }
+    printf ("%d %e\n", i,
+      phi 
+    );
+  }
 
   return 0;
 }

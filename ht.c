@@ -34,7 +34,10 @@ void generate_cos(double f, double A, double period, double* data, int n) {
 
 // Hilbert tranform function
 void hilbert(double* data, size_t stride, int n) {
-  gsl_fft_complex_radix2_forward (data, stride, n);
+  gsl_fft_complex_wavetable* wavetable = gsl_fft_complex_wavetable_alloc(n);
+  gsl_fft_complex_workspace* workspace = gsl_fft_complex_workspace_alloc(n);
+
+  gsl_fft_complex_forward (data, stride, n, wavetable, workspace);
 
   // Remove negative frequencies
   for (int i = (n/2); i < n; i++) 
@@ -42,15 +45,18 @@ void hilbert(double* data, size_t stride, int n) {
     REAL(data, i) = 0;
   }
 
-  gsl_fft_complex_radix2_inverse (data, stride, n);
+  gsl_fft_complex_inverse (data, stride, n, wavetable, workspace);
+
+  gsl_fft_complex_wavetable_free(wavetable);
+  gsl_fft_complex_workspace_free(workspace);
 }
 
 int main(void) {
   // Information about original signal x(t)
-  double f = 1.0;       // Hz
+  double f = 2.0;       // Hz
   double A = 5.0; 
   double period = 1.0;  // s
-  int n = 64;           // # samples
+  int n = 72;           // # samples
   double dt = period / n;
 
   // Print num samples

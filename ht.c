@@ -6,7 +6,7 @@
  *
  *  The program prints x(t), H[x(t)], and the calculated and real instantaneous
  *  phase of x(t), over time 
- *  Where x(t) is the original signal, i.e. 5cos(2pi * 2 * t)
+ *  Where x(t) is the original signal, i.e. A * cos(2pi * f * t)
  *        H[x(t)] is the Hilbert transform of x(t)
  */
 
@@ -33,7 +33,7 @@ void generate_cos(double f, double A, double period, double* data, int n) {
 }
 
 // Hilbert tranform function
-void hilbert(double* data, int stride, int n) {
+void hilbert(double* data, size_t stride, int n) {
   gsl_fft_complex_radix2_forward (data, stride, n);
 
   // Remove negative frequencies
@@ -47,7 +47,7 @@ void hilbert(double* data, int stride, int n) {
 
 int main(void) {
   // Information about original signal x(t)
-  double f = 2.0;       // Hz
+  double f = 1.0;       // Hz
   double A = 5.0; 
   double period = 1.0;  // s
   int n = 64;           // # samples
@@ -88,7 +88,7 @@ int main(void) {
   {
     gsl_complex a = REAL(data,i) + IMAG(data,i)*I;
     printf ("%d %e\n", i,
-      carg(a) + (TWOPI / 2)
+      2 * (carg(a) + (TWOPI / 2)) / TWOPI
     );
   }
 
@@ -104,7 +104,7 @@ int main(void) {
     }
 
     printf ("%d %e\n", i,
-      phi_t 
+      2 * phi_t / TWOPI 
     );
   }
 
